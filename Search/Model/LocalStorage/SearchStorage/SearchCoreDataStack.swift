@@ -33,18 +33,6 @@ class SearchCoreDataStack {
     }
 
 
-
-    func fetchAllRepository(completion: @escaping ([ManagedRepository]?, Error?) -> ()) {
-        let request: NSFetchRequest<ManagedRepository> = NSFetchRequest(entityName: String(describing: ManagedRepository.self))
-        request.sortDescriptors = [ NSSortDescriptor(key: "stars", ascending: false)]
-        do {
-            let repositoryArray = try managedObjectContext.fetch(request)
-            completion(repositoryArray, nil)
-        } catch {
-            completion(nil, error)
-        }
-    }
-
     func fetchRepository(with query: String, completion: @escaping ([ManagedRepository]?, Error?) -> ()) {
         let request: NSFetchRequest<ManagedRepository> = ManagedRepository.fetchRequest()
         request.sortDescriptors = [ NSSortDescriptor(key: "stars", ascending: false)]
@@ -73,7 +61,7 @@ class SearchCoreDataStack {
 
 
     func clearAllManagedRepository() {
-        self.persistentContainer.performBackgroundTask { [unowned self] context in
+        persistentContainer.performBackgroundTask { [unowned self] context in
             let request: NSFetchRequest<ManagedRepository> = ManagedRepository.fetchRequest()
             do {
                 let repositoryArray = try context.fetch(request)

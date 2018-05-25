@@ -35,8 +35,8 @@ protocol SearchInteractorProtocol: class {
 
     var presenter: SearchPresenterProtocol!  { get set }
 
-    func fetchRepository(_ parameters: [String : Any], completion: @escaping (Response<RepositoryResult?, APIError>) -> ())
-    func fetchRepositoryFromLocal(_ query: String, completion: @escaping ([Repository]?, APIError?) -> ())
+    func fetchRepository(_ query: String, completion: @escaping (Response<RepositoryResult?, APIError>) -> ())
+    func fetchRepositoryOnScroll(completion: @escaping (Response<RepositoryResult?, APIError>) -> ())
     func saveToLocalStore(_ repository: [Repository])
     func cancelTasks()
 
